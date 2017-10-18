@@ -1,10 +1,13 @@
 <div id="app">
-  <ul>
-    <li v-for="task in tasks" v-on:click="taskComplete(tasks.task)">{{tasks.task}}</li>
-  </ul>
-
-  <h4>Add Task</h4>
-  <input v-model="newTask">
-  <input v-model="newTaskPriority">
-  <button v-on:click="addTask">Add new Task</button>
+  <div v-for="task in tasks">
+    <h2 v-on:click="completeTask(task)" v-bind:class="{complete: task.completed}">{{task.task}}</h2>
+    <h2>{{task.priority}}</h2>
+  </div>
+  <div>
+    <h4>Add Task</h4>
+    <input v-model="newTask">
+    <input v-model="newTaskPriority">
+    <button v-on:click="addTask">Add new Task</button>
+  </div>
+<h4>{{incompleteCounter()}}</h4>
 </div>

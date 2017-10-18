@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     data: {
       message: "Hey Vue, how's it going?",
       tasks: [
-              {task: "Task 1", priority: "high"},
-              {task: "Task 2", priority: "low"},
-              {task: "Task 3", priority: "medium"},
+              {task: "Task 1", priority: "10", completed: false},
+              {task: "Task 2", priority: "1", completed: false},
+              {task: "Task 3", priority: "5", completed: false},
               ],
       newTask: "",
       newTaskPriority: ""
@@ -16,18 +16,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
     },
     methods: {
       addTask: function() {
-        if (this.newTask && this.newTaskPriority) {
-          this.newTask = "Error Blank, put something down.";
-        } else {
-          var taskObject = {"task": this.newTask, "priority": this.newTaskPriority};
-          this.tasks << taskObject;
+          var taskObject = {
+                            task: this.newTask, 
+                            priority: this.newTaskPriority, 
+                            completed: false
+                          };
+          this.tasks.push(taskObject);
           this.newTask = "";
           this.newTaskPriority = "";
-        }
       },
-      taskComplete: function(inputTask) {
-        let index = this.tasks.indexOf(inputTask);
-        this.tasks.splice(index,1);
+      completeTask: function(inputTask) {
+        inputTask.completed = !inputTask.completed;
+      },
+      incompleteCounter: function() {
+        let counter = 0;
+        this.tasks.forEach(function(task) {
+          if (task.completed === false) {
+            counter++;
+          }
+          return counter;
+        });
       }
     },
     computed: {
